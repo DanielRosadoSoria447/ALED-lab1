@@ -15,7 +15,7 @@ public class FilterExtractChannels implements Filter {
 	 */
 	public FilterExtractChannels(int[] validChannels) {
 		// TODO
-		
+		int x=0;
 		
 	}
 
