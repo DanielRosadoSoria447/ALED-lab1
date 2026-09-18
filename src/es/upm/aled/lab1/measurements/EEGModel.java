@@ -69,7 +69,7 @@ public class EEGModel {
 	public void addMeasurement(Measurement measurement) {
 		measurements.add(measurement);
 		if (gui != null)
-			gui.plotMeasurement(measurement);
+			gui.plotMeasurement(measurement); 
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class EEGModel {
 			float[] channels = new float[columns.length - 1];
 			for (int i = 1; i < columns.length; i++)
 				channels[i - 1] = Float.parseFloat(columns[i]);
-			addMeasurement(new Measurement(channels));
+			addMeasurement(new Measurement(channels)); 
 		}
 		fis.close();
 	}
@@ -131,7 +131,28 @@ public class EEGModel {
 	 */
 	public void saveFile(String fileName) throws IOException {
 		// TODO
+		File f = new File(fileName);
+		FileOutputStream fis = new FileOutputStream(f);
+		PrintStream ps = new PrintStream(fis);
 		
+		int indice = 0;
+		
+		for (Measurement m : measurements) {
+			int canales = m.numChannels();
+			String linea = (indice % 256) + "";
+			for (int i = 0; i < canales; i++) {
+				linea = linea + ", " + String.valueOf(m.getChannel(i)); //o simplemete m.getChannel(i)
+				
+			}
+			
+			//System.out.println(linea);
+
+			ps.println(linea); 
+			indice++;
+			
+		}
+		ps.close();
+
 	}
 
 	/**
@@ -245,7 +266,7 @@ public class EEGModel {
 		return new Measurement(curDataPacket_values);
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		if (args.length > 0) {
 			EEGModel eeg = new EEGModel(args[0]);
 			eeg.plotData();
@@ -255,6 +276,7 @@ public class EEGModel {
 			EEGModel eeg = new EEGModel();
 			eeg.createSyntheticData(1000);
 			// TODO
+			eeg.saveFile("Synthetic.txt.");
 			
 		}
 	}
