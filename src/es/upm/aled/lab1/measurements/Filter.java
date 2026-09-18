@@ -16,3 +16,4 @@ public interface Filter {
 	 */
 	EEGModel applyFilter(EEGModel eeg);
 }
+ 

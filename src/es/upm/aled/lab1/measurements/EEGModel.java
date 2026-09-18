@@ -23,13 +23,13 @@ import es.upm.aled.lab1.gui.EEG_GUI;
  * @author mmiguel, rgarciacarmona
  *
  */
-public class EEGModel {
+public class EEGModel { 
 
 	protected List<Measurement> measurements = new ArrayList<Measurement>();
 	protected EEG_GUI gui;
 
 	/**
-	 * Builds an empty EEGModel.
+	 * Builds an empty EEGModel. 
 	 */
 	public EEGModel() {
 	}
@@ -47,7 +47,7 @@ public class EEGModel {
 			System.out.println("Error reading from file. Is the format correct?");
 			e.printStackTrace();
 			return;
-		}
+		} 
 	}
 
 	/**
@@ -57,7 +57,10 @@ public class EEGModel {
 	 */
 	public EEGModel(Measurement[] measurements) {
 		// TODO
-		
+		this.measurements = new ArrayList<Measurement>();
+		for(int i=0; i<measurements.length; i++) { 
+			this.measurements.add(measurements[i]);   
+		}
 	}
 
 	/**
@@ -142,7 +145,7 @@ public class EEGModel {
 			String linea = (indice % 256) + "";
 			for (int i = 0; i < canales; i++) {
 				linea = linea + ", " + String.valueOf(m.getChannel(i)); //o simplemete m.getChannel(i)
-				
+				 
 			}
 			
 			//System.out.println(linea);
@@ -272,11 +275,16 @@ public class EEGModel {
 			eeg.plotData();
 			// TODO
 			
+			
 		} else {
 			EEGModel eeg = new EEGModel();
 			eeg.createSyntheticData(1000);
 			// TODO
-			eeg.saveFile("Synthetic.txt.");
+			eeg.saveFile("Synthetic.txt");
+			
+			Measurement[] arrayMuestras = eeg.getMeasurements();
+			EEGModel nuevoModelo = new EEGModel(arrayMuestras);
+			System.out.println(nuevoModelo.getMeasurements().length);
 			
 		}
 	}

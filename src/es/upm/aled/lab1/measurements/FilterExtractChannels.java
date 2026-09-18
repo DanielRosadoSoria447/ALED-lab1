@@ -15,13 +15,15 @@ public class FilterExtractChannels implements Filter {
 	 */
 	public FilterExtractChannels(int[] validChannels) {
 		// TODO
-	}
+		
+	}  
 
 	@Override
 	public EEGModel applyFilter(EEGModel eeg) {
 		// TODO
-		
+	
 		return null;
 	}
+	
 
 }
