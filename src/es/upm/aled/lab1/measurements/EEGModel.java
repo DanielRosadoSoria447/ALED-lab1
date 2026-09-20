@@ -59,7 +59,7 @@ public class EEGModel {
 		// TODO
 		this.measurements = new ArrayList<Measurement>();
 		for(int i=0; i<measurements.length; i++) { 
-			this.measurements.add(measurements[i]);   
+			this.measurements.add(measurements[i]);    
 		}
 	}
 
@@ -94,7 +94,7 @@ public class EEGModel {
 	public EEGModel filter(Filter filter) {
 		// TODO
 		
-		return null;
+		return filter.applyFilter(this);  
 	}
 
 	/**
@@ -272,19 +272,30 @@ public class EEGModel {
 	public static void main(String[] args) throws IOException {
 		if (args.length > 0) {
 			EEGModel eeg = new EEGModel(args[0]);
-			eeg.plotData();
-			// TODO
 			
+			int [] canales = {8,9,10};
+			Filter filtroCanales = new FilterExtractChannels(canales); 
+			
+			Filter filtroMuestras = new FilterExtractPeriod(2750, 5750);
+			
+			//Asi tambien estaría bien, pero nos han pedido que usemos el metodo filter
+			
+			//EEGModel eegCanales = filtroCanales.applyFilter(eeg);
+			
+			//EEGModel eegFinal = filtroMuestras.applyFilter(eegCanales); 
+			
+			EEGModel eegCanales = eeg.filter(filtroCanales);
+			EEGModel eegFinal = eegCanales.filter(filtroMuestras);
+			
+			eegFinal.plotData();
+			// TODO 
+			 
 			
 		} else {
 			EEGModel eeg = new EEGModel();
 			eeg.createSyntheticData(1000);
 			// TODO
 			eeg.saveFile("Synthetic.txt");
-			
-			Measurement[] arrayMuestras = eeg.getMeasurements();
-			EEGModel nuevoModelo = new EEGModel(arrayMuestras);
-			System.out.println(nuevoModelo.getMeasurements().length);
 			
 		}
 	}

@@ -7,6 +7,9 @@ package es.upm.aled.lab1.measurements;
  *
  */
 public class FilterExtractPeriod implements Filter {
+	
+	private int min;
+	private int max;
 
 	/**
 	 * Builds the Filter from the [min, max] range defining the period that needs to
@@ -21,13 +24,35 @@ public class FilterExtractPeriod implements Filter {
 	 */
 	public FilterExtractPeriod(int min, int max) {
 		// TODO
-		
-	}
+		this.min = min;
+		this.max = max;
+	} 
 
 	@Override
 	public EEGModel applyFilter(EEGModel eeg) {
 		// TODO
+		Measurement [] measurement = eeg.getMeasurements();
+		int rango = this.max - this.min + 1;
+		Measurement [] measurementFiltradas = new Measurement [rango];
+		int k=0;
 		
-		return null;
+		if (this.min >=0 && this.max < measurement.length && this.min<=this.max) {
+			
+			for(int i=this.min; i<max+1; i++) {
+				
+				measurementFiltradas[k]=measurement[i];   
+				  
+				 k++;
+				 
+			}
+		}else { 
+			
+			System.out.println("max-min must be less than the length of the Measurements array of the EGG Model");
+			return null;
+		}
+		
+		EEGModel eegFiltrado = new EEGModel(measurementFiltradas);
+		
+		return eegFiltrado;
 	}
 }
