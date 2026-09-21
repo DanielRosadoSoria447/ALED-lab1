@@ -273,10 +273,10 @@ public class EEGModel {
 		if (args.length > 0) {
 			EEGModel eeg = new EEGModel(args[0]);
 			
-			int [] canales = {8,9,10};
-			Filter filtroCanales = new FilterExtractChannels(canales); 
+			//int [] canales = {8,9,10};
+			//Filter filtroCanales = new FilterExtractChannels(canales); 
 			
-			Filter filtroMuestras = new FilterExtractPeriod(2750, 5750);
+			//Filter filtroMuestras = new FilterExtractPeriod(2750, 5750);
 			
 			//Asi tambien estaría bien, pero nos han pedido que usemos el metodo filter
 			
@@ -284,8 +284,14 @@ public class EEGModel {
 			
 			//EEGModel eegFinal = filtroMuestras.applyFilter(eegCanales); 
 			
-			EEGModel eegCanales = eeg.filter(filtroCanales);
-			EEGModel eegFinal = eegCanales.filter(filtroMuestras);
+			//EEGModel eegCanales = eeg.filter(filtroCanales);
+			//EEGModel eegFinal = eegCanales.filter(filtroMuestras);
+			
+			float umbral = 5000.0f;
+			int channel=10;
+			
+			Filter filtroUmbral = new FilterExtractThresholdWindow(channel, umbral);
+			EEGModel eegFinal = filtroUmbral.applyFilter(eeg);  
 			
 			eegFinal.plotData();
 			// TODO 
