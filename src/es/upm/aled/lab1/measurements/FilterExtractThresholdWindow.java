@@ -32,7 +32,7 @@ public class FilterExtractThresholdWindow implements Filter {
 			if(sample > this.umbral) {
 				indiceMuestra = i;  
 				break; 
-				
+				 
 			}
 			
 		}
@@ -44,14 +44,14 @@ public class FilterExtractThresholdWindow implements Filter {
 		
 		//Control de límites seguros (evita índices negativos como -100)
 		
-		int inicio = Math.max(0, indiceMuestra-100); 
+		int inicio = Math.max(0, indiceMuestra-100);  
 		int fin = Math.min(medidas.length, indiceMuestra+101);     
 		
 		Measurement [] measurement = new Measurement [fin-inicio];  
 		
 		for(int i=inicio; i<fin; i++) {   
 			
-			measurement[k]=medidas[i]; 
+			measurement[k]=medidas[i];  
 			k++;
 			
 		}

@@ -43,7 +43,7 @@ public class FilterExtractPeriod implements Filter {
 				measurementFiltradas[k]=measurement[i];   
 				  
 				 k++;
-				 
+				  
 			}
 		}else { 
 			

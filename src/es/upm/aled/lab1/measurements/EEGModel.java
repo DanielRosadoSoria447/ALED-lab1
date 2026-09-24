@@ -26,7 +26,7 @@ import es.upm.aled.lab1.gui.EEG_GUI;
 public class EEGModel { 
 
 	protected List<Measurement> measurements = new ArrayList<Measurement>();
-	protected EEG_GUI gui;
+	protected EEG_GUI gui; 
 
 	/**
 	 * Builds an empty EEGModel. 
@@ -62,6 +62,7 @@ public class EEGModel {
 			this.measurements.add(measurements[i]);    
 		}
 	}
+	
 
 	/**
 	 * Adds a Measurement to the end of the EEGModel. If the GUI is running, the new
@@ -112,12 +113,12 @@ public class EEGModel {
 		FileInputStream fis = new FileInputStream(f);
 		DataInput fid = new DataInputStream(fis);
 		String line;
-		while ((line = fid.readLine()) != null) {
+		while ((line = fid.readLine()) != null) { 
 			// Removes the comments
 			if (line.startsWith("%"))
-				continue;
+				continue; 
 			// Separates by commas and extracts the channels from each measurement
-			String[] columns = line.split(",");
+			String[] columns = line.split(","); 
 			float[] channels = new float[columns.length - 1];
 			for (int i = 1; i < columns.length; i++)
 				channels[i - 1] = Float.parseFloat(columns[i]);
@@ -138,9 +139,9 @@ public class EEGModel {
 		FileOutputStream fis = new FileOutputStream(f);
 		PrintStream ps = new PrintStream(fis);
 		
-		int indice = 0;
+		int indice = 0; 
 		
-		for (Measurement m : measurements) {
+		for (Measurement m : measurements) { 
 			int canales = m.numChannels();
 			String linea = (indice % 256) + "";
 			for (int i = 0; i < canales; i++) {
@@ -301,8 +302,8 @@ public class EEGModel {
 			EEGModel eeg = new EEGModel();
 			eeg.createSyntheticData(1000);
 			// TODO
-			eeg.saveFile("Synthetic.txt");
-			
-		}
+			eeg.saveFile("recordings/Synthetic.txt");
+		
 	}
 }
+	}
